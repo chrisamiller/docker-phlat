@@ -13,6 +13,7 @@ RUN gdown -O phlat-release-1.1_Ubuntu.tar.gz --id 0ByHcYNU3A9ADVnNMR2FYd1M0bGs &
     gunzip phlat-release-1.1_Ubuntu.tar.gz && tar -xvf phlat-release-1.1_Ubuntu.tar && \
     rm -f phlat-release-1.1_Ubuntu.tar
 
-#pull down the bowtie index for the hla types
-RUN gdown -O b2folder.tar.gz --id 0ByHcYNU3A9ADaHI3aVd3WXVZeWM && \
-    gunzip b2folder.tar.gz && tar -xvf b2folder.tar && mv b2folder phlat-release/ && rm -f b2folder.tar
+# this branch assumes you've done this and cached it somewhere, so that the 3.5Gb d/l can be avoided
+# #pull down the bowtie index for the hla types
+# RUN gdown -O b2folder.tar.gz --id 0ByHcYNU3A9ADaHI3aVd3WXVZeWM && \
+#     gunzip b2folder.tar.gz && tar -xvf b2folder.tar && mv b2folder phlat-release/ && rm -f b2folder.tar
