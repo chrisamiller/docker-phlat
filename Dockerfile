@@ -7,6 +7,10 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
 RUN pip install pysam==0.8.4 ;# PHLAT fails with later versions of pysam
 RUN pip install gdown;
 
+# grab the samtools instead of compiling
+COPY --from=quay.io/biocontainers/samtools:1.14--hb421002_0 /usr/local/bin/samtools /usr/local/bin/samtools
+COPY --from=quay.io/biocontainers/samtools:1.14--hb421002_0 /usr/local/lib/libhts.so* /usr/local/lib/libtinfow.so* /usr/local/lib/
+
 # Install PHLAT
 WORKDIR /opt/
 RUN gdown -O phlat-release-1.1_Ubuntu.tar.gz --id 0ByHcYNU3A9ADVnNMR2FYd1M0bGs && \
