@@ -10,7 +10,6 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
 
 # Get pip and pysam
 RUN pip2 install pysam==0.8.4 ;# PHLAT fails with later versions of pysam
-RUN pip2 install gdown;
 
 # grab the samtools instead of compiling
 COPY --from=quay.io/biocontainers/samtools:1.14--hb421002_0 /usr/local/bin/samtools /usr/local/bin/samtools
