@@ -11,9 +11,6 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
 # Get pip and pysam
 RUN pip2 install pysam==0.8.4 ;# PHLAT fails with later versions of pysam
 
-# Grab picard
-# /bin/sh -c mkdir /opt/picard-2.18.1/     && cd /tmp/     && wget --no-check-certificate https://github.com/broadinstitute/picard/releases/download/2.18.1/picard.jar     && mv picard.jar /opt/picard-2.18.1/     && ln -s /opt/picard-2.18.1 /opt/picard     && ln -s /opt/picard-2.18.1 /usr/picard
-
 # grab the samtools instead of compiling
 COPY --from=quay.io/biocontainers/samtools:1.14--hb421002_0 /usr/local/bin/samtools /usr/local/bin/samtools
 COPY --from=quay.io/biocontainers/samtools:1.14--hb421002_0 /usr/local/lib/libhts.so* /usr/local/lib/libtinfow.so* /usr/local/lib/libdeflate.so* /usr/local/lib/
@@ -30,7 +27,6 @@ RUN mkdir /opt/picard-2.18.1
 RUN mv picard.jar /opt/picard-2.18.1
 RUN ln -s /opt/picard-2.18.1 /opt/picard
 RUN ln -s /opt/picard-2.18.1 /usr/picard 
-
 
 # Install PHLAT
 WORKDIR /opt/
