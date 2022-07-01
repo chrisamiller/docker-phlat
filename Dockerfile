@@ -1,6 +1,5 @@
 FROM ubuntu:jammy
 
-USER root
 RUN apt-get update -y && apt-get install -y --no-install-recommends \
     python-pip \
     build-essential \
