@@ -22,7 +22,7 @@ ADD https://anaconda.org/bioconda/bowtie2/2.2.4/download/linux-64/bowtie2-2.2.4-
 RUN tar -xvjf /opt/bowtie2-2.2.4-py27_1.tar.bz2
 RUN rm -f /opt/bowtie2-2.2.4-py27_1.tar.bz2
 
-# Get Picared  
+# Get Picard  
 ADD https://github.com/broadinstitute/picard/releases/download/2.18.1/picard.jar ./
 RUN mkdir /opt/picard-2.18.1
 RUN mv picard.jar /opt/picard-2.18.1
