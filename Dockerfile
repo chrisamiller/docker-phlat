@@ -7,6 +7,7 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
     python-all-dev \
     python-setuptools \
     default-jre \
+    default-jdk \
     zlib1g-dev
 
 # Get pip and pysam
