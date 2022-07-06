@@ -24,10 +24,11 @@ RUN rm -f /opt/bowtie2-2.2.4-py27_1.tar.bz2
 
 # Get Picard  
 ADD https://github.com/broadinstitute/picard/releases/download/2.18.1/picard.jar ./
-RUN mkdir /opt/picard-2.18.1
-RUN mv picard.jar /opt/picard-2.18.1
-RUN ln -s /opt/picard-2.18.1 /opt/picard
-RUN ln -s /opt/picard-2.18.1 /usr/picard 
+RUN mkdir /opt/picard-2.18.1 && \
+    mv picard.jar /opt/picard-2.18.1 && \
+    chmod -R ugo+r /opt/picard-2.18.1 && \
+    ln -s /opt/picard-2.18.1 /opt/picard && \
+    ln -s /opt/picard-2.18.1 /usr/picard 
 
 # Install PHLAT
 WORKDIR /opt/
