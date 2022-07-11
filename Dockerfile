@@ -28,13 +28,12 @@ RUN ln -s /opt/picard-2.18.1 /opt/picard
 RUN ln -s /opt/picard-2.18.1 /usr/picard 
 
 # PHLAT
-WORKDIR /opt/
-COPY ./phlat-release /usr/bin/phlat-release
-RUN chmod -R a+w /usr/bin/phlat-release
-COPY run.b38.sh /usr/bin/.
+WORKDIR /usr/
+COPY ./phlat-release bin/phlat-release
+RUN chmod -R a+w bin/phlat-release
+COPY run.b38.sh bin/.
 
 # bowtie2
-WORKDIR /usr/
 ADD https://anaconda.org/bioconda/bowtie2/2.2.4/download/linux-64/bowtie2-2.2.4-py27_1.tar.bz2 /opt/
 RUN tar -xvjf /opt/bowtie2-2.2.4-py27_1.tar.bz2
 RUN rm -f /opt/bowtie2-2.2.4-py27_1.tar.bz2

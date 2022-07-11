@@ -28,7 +28,7 @@ if __name__=="__main__":
  
     args=sys.argv[1:]
     outdir=""
-    phlatdir="../"
+    phlatdir=""
     tag="sample"
     nthreads=8
     artindex="b2folder"

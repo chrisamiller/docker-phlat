@@ -10,7 +10,8 @@ arguments:
   -h, --help      prints this block and immediately exists
 
   --phlat-dir     the path to where phlat is located, DEFAULT \$SRC_DIR/phlat-release
-  --data-dir      the path to the fastq data, DEFAULT example
+  --data-dir      the path to the fastq data, DEFAULT \$PHLAT_DIR/example
+  --tag           ???, DEFAULT example
   --samtools      the path to the samtools executable, DEFAULT /usr/local/bin/samtools
   --bam           the path to where the bam file is located, NO DEFAULT 
   --index-dir     the path to b2folder, DEFAULT \$PHLAT_DIR/b2folder
@@ -52,6 +53,14 @@ while test $# -gt 0; do
 		DARA_DIR=""
 	    else
 		DATA_DIR=$2
+		shift
+	    fi
+	    ;;
+         --tag*)
+	    if [ ! "$2" ]; then
+		TAG=""
+	    else
+		TAG=$2
 		shift
 	    fi
 	    ;;
@@ -128,12 +137,13 @@ while test $# -gt 0; do
 done
 
 # double check all vars are set up
-[ -z $PHLAT_DIR    ] && PHLAT_DIR="/usr/bin/phlat-release"
-[ -z $DATA_DIR     ] && DATA_DIR="/usr/bin/phlat-release/example"
+[ -z $PHLAT_DIR    ] && PHLAT_DIR="$SRC_DIR/phlat-release"
+[ -z $DATA_DIR     ] && DATA_DIR="$PHLAT_DIR/example"
+[ -z $TAG          ] && TAG="example"
 [ -z $SAMTOOLS     ] && SAMTOOLS="/usr/local/bin/samtools"
 [ -z $BAM          ] && die "Missing argument --bam"
-[ -z $INDEX_DIR    ] && INDEX_DIR="/usr/bin/phlat-release/b2folder"
-[ -z $RS_DIR       ] && RS_DIR="/usr/bin/phlat-release/example/results" 
+[ -z $INDEX_DIR    ] && INDEX_DIR="$PHLAT_DIR/b2folder"
+[ -z $RS_DIR       ] && RS_DIR="$DATA_DIR/results" 
 [ -z $B2URL        ] && B2URL="/usr/bin/bowtie2"
 [ -z $FASTQ1       ] && FASTQ1="example_1.fastq.gz"
 [ -z $FASTQ2       ] && FASTQ2="example_2.fastq.gz"
@@ -161,4 +171,4 @@ echo "running pircard..."
 
 #workaround to get everything passed in appropriately
 echo "running PHLAT ..."
-python2 -O ${PHLAT_DIR}/dist/PHLAT.py -1 ${DATA_DIR}/${FASTQ1} -2 ${DATA_DIR}/${FASTQ2} -index $INDEX_DIR -b2url $B2URL -orientation "--fr" -tag $DATA_DIR -e $PHLAT_DIR -o $RS_DIR -tmp 0 -p 4 >$DATA_DIR/run_phlat.sh
+python2 -O ${PHLAT_DIR}/dist/PHLAT.py -1 ${DATA_DIR}/${FASTQ1} -2 ${DATA_DIR}/${FASTQ2} -index $INDEX_DIR -b2url $B2URL -orientation "--fr" -tag $TAG -e $PHLAT_DIR -o $RS_DIR -tmp 0 -p 4 >$DATA_DIR/run_phlat.sh
