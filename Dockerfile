@@ -29,8 +29,8 @@ RUN ln -s /opt/picard-2.18.1 /usr/picard
 
 # PHLAT
 WORKDIR /opt/
-COPY ./phlat-release ./
-COPY ./run_b38.sh ./
+COPY ./phlat-release /usr/bin/.
+COPY run.b38.sh /usr/bin/.
 
 # bowtie2
 WORKDIR /usr/
