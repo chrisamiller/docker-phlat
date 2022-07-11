@@ -128,7 +128,7 @@ while test $# -gt 0; do
 done
 
 # double check all vars are set up
-[ -z $PHLAT_DIR    ] && PHLAT_DIR="$SRC_DIR/phlat-release"
+[ -z $PHLAT_DIR    ] && PHLAT_DIR="/usr/bin/phlat-release"
 [ -z $DATA_DIR     ] && DATA_DIR="$PHLAT_DIR/example"
 [ -z $SAMTOOLS     ] && SAMTOOLS="/usr/local/bin/samtools"
 [ -z $BAM          ] && die "Missing argument --bam"
