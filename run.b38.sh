@@ -129,7 +129,7 @@ done
 
 # double check all vars are set up
 [ -z $PHLAT_DIR    ] && PHLAT_DIR="$SRC_DIR/phlat-release"
-[ -z $DATA_DIR     ] && DATA_DIR="example"
+[ -z $DATA_DIR     ] && DATA_DIR="$PHLAT_DIR/example"
 [ -z $SAMTOOLS     ] && SAMTOOLS="/usr/local/bin/samtools"
 [ -z $BAM          ] && die "Missing argument --bam"
 [ -z $INDEX_DIR    ] && INDEX_DIR="$PHLAT_DIR/b2folder"
