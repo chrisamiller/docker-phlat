@@ -129,18 +129,18 @@ done
 
 # double check all vars are set up
 [ -z $PHLAT_DIR    ] && PHLAT_DIR="/usr/bin/phlat-release"
-[ -z $DATA_DIR     ] && DATA_DIR="$PHLAT_DIR/example"
+[ -z $DATA_DIR     ] && DATA_DIR="/usr/bin/phlat-release/example"
 [ -z $SAMTOOLS     ] && SAMTOOLS="/usr/local/bin/samtools"
 [ -z $BAM          ] && die "Missing argument --bam"
-[ -z $INDEX_DIR    ] && INDEX_DIR="$PHLAT_DIR/b2folder"
-[ -z $RS_DIR       ] && RS_DIR="$DATA_DIR/results" 
+[ -z $INDEX_DIR    ] && INDEX_DIR="/usr/bin/phlat-release/b2folder"
+[ -z $RS_DIR       ] && RS_DIR="/usr/bin/phlat-release/example/results" 
 [ -z $B2URL        ] && B2URL="/usr/bin/bowtie2"
 [ -z $FASTQ1       ] && FASTQ1="example_1.fastq.gz"
 [ -z $FASTQ2       ] && FASTQ2="example_2.fastq.gz"
 [ -z $REF_FASTA    ] && die "Missing argument --ref-fasta"
 
 
-mkdir -p $DATA_DIR/results
+mkdir -p $RS_DIR
 tmpdir=$DATA_DIR/tmp
 mkdir -p $tmpdir
 
