@@ -74,7 +74,7 @@ while test $# -gt 0; do
 	    ;;
          --bam*)
             if [ ! "$2" ]; then 
-                die 'ERROR: "--bam" requires a non-empty argument.'
+                BAM=""
             else
                 BAM=$2
                 shift
@@ -122,7 +122,7 @@ while test $# -gt 0; do
        	    ;;
         --ref-fasta*)
 	    if [ ! "$2" ]; then
-		REF_FASTA="ERROR: --ref-fasta requires non-empty argument"
+		REF_FASTA=""
 	    else
 		REF_FASTA=$2
 		shift
@@ -141,13 +141,13 @@ done
 [ -z $DATA_DIR     ] && DATA_DIR="$PHLAT_DIR/example"
 [ -z $TAG          ] && TAG="example"
 [ -z $SAMTOOLS     ] && SAMTOOLS="/usr/local/bin/samtools"
-[ -z $BAM          ] && die "Missing argument --bam"
+[ -z $BAM          ] && BAM="$PHLAT_DIR/resources/normal.cram"
 [ -z $INDEX_DIR    ] && INDEX_DIR="$PHLAT_DIR/b2folder"
 [ -z $RS_DIR       ] && RS_DIR="$DATA_DIR/results" 
 [ -z $B2URL        ] && B2URL="/usr/bin/bowtie2"
 [ -z $FASTQ1       ] && FASTQ1="example_1.fastq.gz"
 [ -z $FASTQ2       ] && FASTQ2="example_2.fastq.gz"
-[ -z $REF_FASTA    ] && die "Missing argument --ref-fasta"
+[ -z $REF_FASTA    ] && REF_FASTA="$PHLAT_DIR/resources/all_sequences.fa"
 
 
 mkdir -p $RS_DIR
