@@ -11,7 +11,7 @@ arguments:
 
   --phlat-dir     the path to where phlat is located, DEFAULT \$SRC_DIR/phlat-release
   --data-dir      the path to the fastq data, DEFAULT \$PHLAT_DIR/example
-  --tag           ???, DEFAULT example
+  --tag           typically the name of the sample folder, DEFAULT example
   --samtools      the path to the samtools executable, DEFAULT /usr/local/bin/samtools
   --bam           the path to where the bam file is located, NO DEFAULT 
   --index-dir     the path to b2folder, DEFAULT \$PHLAT_DIR/b2folder
