@@ -13,11 +13,11 @@ arguments:
   --data-dir      the path to the fastq data, DEFAULT \$PHLAT_DIR/example
   --tag           typically the name of the sample folder, DEFAULT example
   --samtools      the path to the samtools executable, DEFAULT /usr/local/bin/samtools
-  --bam           the path to where the bam file is located, NO DEFAULT 
+  --bam           the path to where the bam file is located, \$PHLAT_DIR/resources/normal.cram 
   --index-dir     the path to b2folder, DEFAULT \$PHLAT_DIR/b2folder
   --rs-dir        the path where the results will be, DEFAULT \$DATA_DIR/results
   --b2url         the path to where bowtie2 is located, DEFAULT /usr/bin/bowtie2 
-  --ref-fasta     the path to where the reference fasta file is located, NO DEFAULT
+  --ref-fasta     the path to where the reference fasta file is located, \$PHLAT_DIR/resources/all_sequences.fa
 
 
 EOF
