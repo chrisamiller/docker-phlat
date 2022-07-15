@@ -17,8 +17,6 @@ arguments:
   --index-dir     the path to b2folder, DEFAULT \$PHLAT_DIR/b2folder
   --rs-dir        the path where the results will be, DEFAULT \$DATA_DIR/results
   --b2url         the path to where bowtie2 is located, DEFAULT /usr/bin/bowtie2 
-  --fastq1        the name of seq num 1, DEFAULT 'example_1.fastq.gz' 
-  --fastq2        the name of seq num 2, DEFAULT 'example_2.fastq.gz'
   --ref-fasta     the path to where the reference fasta file is located, NO DEFAULT
 
 
@@ -104,22 +102,6 @@ while test $# -gt 0; do
 		shift
 	    fi
        	    ;;
-        --fastq1*)
-	    if [ ! "$2" ]; then
-		FASTQ1=""
-	    else
-		FASTQ1=$2
-		shift
-	    fi
-       	    ;;
-       --fastq2*)
-	    if [ ! "$2" ]; then
-		FASTQ2=""
-	    else
-		FASTQ2=$2
-		shift
-	    fi
-       	    ;;
         --ref-fasta*)
 	    if [ ! "$2" ]; then
 		REF_FASTA=""
@@ -145,8 +127,6 @@ done
 [ -z $INDEX_DIR    ] && INDEX_DIR="$PHLAT_DIR/b2folder"
 [ -z $RS_DIR       ] && RS_DIR="$DATA_DIR/results" 
 [ -z $B2URL        ] && B2URL="/usr/bin/bowtie2"
-[ -z $FASTQ1       ] && FASTQ1="example_1.fastq.gz"
-[ -z $FASTQ2       ] && FASTQ2="example_2.fastq.gz"
 [ -z $REF_FASTA    ] && REF_FASTA="$PHLAT_DIR/resources/all_sequences.fa"
 
 
@@ -171,4 +151,4 @@ echo "running pircard..."
 
 #workaround to get everything passed in appropriately
 echo "running PHLAT ..."
-python2 -O ${PHLAT_DIR}/dist/PHLAT.py -1 ${DATA_DIR}/${FASTQ1} -2 ${DATA_DIR}/${FASTQ2} -index $INDEX_DIR -b2url $B2URL -orientation "--fr" -tag $TAG -e $PHLAT_DIR -o $RS_DIR -tmp 0 -p 4 >$DATA_DIR/run_phlat.sh
+python2 -O ${PHLAT_DIR}/dist/PHLAT.py -1 ${DATA_DIR}/hlaPlusUnmapped_1.fastq.gz -2 ${DATA_DIR}/hlaPlusUnmapped_2.fastq.gz -index $INDEX_DIR -b2url $B2URL -orientation "--fr" -tag $TAG -e $PHLAT_DIR -o $RS_DIR -tmp 0 -p 4 >$DATA_DIR/run_phlat.sh
