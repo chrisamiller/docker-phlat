@@ -30,7 +30,7 @@ RUN ln -s /opt/picard-2.18.1 /usr/picard
 # PHLAT
 WORKDIR /usr/
 COPY ./phlat-release bin/phlat-release
-RUN chmod -R a+w bin/phlat-release
+RUN chmod -R a+rwx bin/phlat-release
 COPY run.b38.sh bin/.
 
 # bowtie2
