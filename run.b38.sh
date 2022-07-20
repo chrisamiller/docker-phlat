@@ -157,6 +157,5 @@ $SAMTOOLS view -Sb -o $tmpdir/reads.bam $tmpdir/reads.sam
 echo "running pircard..."
 /usr/bin/java -Xmx6g -jar /usr/picard/picard.jar SamToFastq VALIDATION_STRINGENCY=LENIENT F=$DATA_DIR/hlaPlusUnmapped_1.fastq.gz F2=$DATA_DIR/hlaPlusUnmapped_2.fastq.gz I=$tmpdir/reads.bam R=$REF_FASTA FU=$DATA_DIR/unpaired.fastq.gz
 
-#workaround to get everything passed in appropriately
 echo "running PHLAT ..."
 python2 -O ${PHLAT_DIR}/dist/PHLAT.py -1 ${DATA_DIR}/hlaPlusUnmapped_1.fastq.gz -2 ${DATA_DIR}/hlaPlusUnmapped_2.fastq.gz -index $INDEX_DIR -b2url $B2URL -orientation "--fr" -tag $TAG -e $PHLAT_DIR -o $RS_DIR -tmp 0 -p 4 >$DATA_DIR/run_phlat.sh
