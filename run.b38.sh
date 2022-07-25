@@ -143,12 +143,9 @@ time $SAMTOOLS view -h -T $REF_FASTA $BAM chr6:29836259-33148325 >$tmpdir/reads.
 # pull out only the *header* lines from the CRAM with the -H parameter. then get the sequence names and for those that match the string "HLA" do the following
 echo "[INFO] $SAMTOOLS view -H -T $REF_FASTA $BAM | grep "^@SQ" | cut -f 2 | cut -f 2- -d : | grep HLA | while read chr;do"
 time $SAMTOOLS view -H -T $REF_FASTA $BAM | grep "^@SQ" | cut -f 2 | cut -f 2- -d : | grep HLA | while read chr;do 
-
 # echo "checking $chr:1-9999999"
 # grab all the reads that align to each alternate "HLA" sequence
-
-echo "[INFO] $SAMTOOLS view -T $REF_FASTA $BAM "$chr:1-9999999" >>$tmpdir/reads.sam"
-time $SAMTOOLS view -T $REF_FASTA $BAM "$chr:1-9999999" >>$tmpdir/reads.sam
+$SAMTOOLS view -T $REF_FASTA $BAM "$chr:1-9999999" >>$tmpdir/reads.sam
 done
 
 # grab all the reads that are unaligned
