@@ -137,25 +137,32 @@ mkdir -p $tmpdir
 echo "extracting hla region from chr6, reads to alternate HLA sequences, and all unmapped reads ..."
 
 # filter out reads directly from an existing CRAM file of alignments, only those reads that align to this region: chr6:29836259-33148325
-$SAMTOOLS view -h -T $REF_FASTA $BAM chr6:29836259-33148325 >$tmpdir/reads.sam
+echo "[INFO] $SAMTOOLS view -h -T $REF_FASTA $BAM chr6:29836259-33148325 >$tmpdir/reads.sam"
+time $SAMTOOLS view -h -T $REF_FASTA $BAM chr6:29836259-33148325 >$tmpdir/reads.sam
 
 # pull out only the *header* lines from the CRAM with the -H parameter. then get the sequence names and for those that match the string "HLA" do the following
-$SAMTOOLS view -H -T $REF_FASTA $BAM | grep "^@SQ" | cut -f 2 | cut -f 2- -d : | grep HLA | while read chr;do 
+echo "[INFO] $SAMTOOLS view -H -T $REF_FASTA $BAM | grep "^@SQ" | cut -f 2 | cut -f 2- -d : | grep HLA | while read chr;do"
+time $SAMTOOLS view -H -T $REF_FASTA $BAM | grep "^@SQ" | cut -f 2 | cut -f 2- -d : | grep HLA | while read chr;do 
 
 # echo "checking $chr:1-9999999"
-
 # grab all the reads that align to each alternate "HLA" sequence
-$SAMTOOLS view -T $REF_FASTA $BAM "$chr:1-9999999" >>$tmpdir/reads.sam
+
+echo "[INFO] $SAMTOOLS view -T $REF_FASTA $BAM "$chr:1-9999999" >>$tmpdir/reads.sam"
+time $SAMTOOLS view -T $REF_FASTA $BAM "$chr:1-9999999" >>$tmpdir/reads.sam
 done
 
 # grab all the reads that are unaligned
-$SAMTOOLS view -f 4 -T $REF_FASTA $BAM >>$tmpdir/reads.sam
+echo "[INFO] $SAMTOOLS view -f 4 -T $REF_FASTA $BAM >>$tmpdir/reads.sam"
+time $SAMTOOLS view -f 4 -T $REF_FASTA $BAM >>$tmpdir/reads.sam
 
 # covert from .sam to .bam format
-$SAMTOOLS view -Sb -o $tmpdir/reads.bam $tmpdir/reads.sam 
+echo "[INFO] $SAMTOOLS view -Sb -o $tmpdir/reads.bam $tmpdir/reads.sam"
+time $SAMTOOLS view -Sb -o $tmpdir/reads.bam $tmpdir/reads.sam 
 
 echo "running pircard..."
-/usr/bin/java -Xmx6g -jar /usr/picard/picard.jar SamToFastq VALIDATION_STRINGENCY=LENIENT F=$DATA_DIR/hlaPlusUnmapped_1.fastq.gz F2=$DATA_DIR/hlaPlusUnmapped_2.fastq.gz I=$tmpdir/reads.bam R=$REF_FASTA FU=$DATA_DIR/unpaired.fastq.gz
+echo "[INFO]  /usr/bin/java -Xmx6g -jar /usr/picard/picard.jar SamToFastq VALIDATION_STRINGENCY=LENIENT F=$DATA_DIR/hlaPlusUnmapped_1.fastq.gz F2=$DATA_DIR/hlaPlusUnmapped_2.fastq.gz I=$tmpdir/reads.bam R=$REF_FASTA FU=$DATA_DIR/unpaired.fastq.gz"
+time /usr/bin/java -Xmx6g -jar /usr/picard/picard.jar SamToFastq VALIDATION_STRINGENCY=LENIENT F=$DATA_DIR/hlaPlusUnmapped_1.fastq.gz F2=$DATA_DIR/hlaPlusUnmapped_2.fastq.gz I=$tmpdir/reads.bam R=$REF_FASTA FU=$DATA_DIR/unpaired.fastq.gz
 
 echo "running PHLAT ..."
-python2 -O ${PHLAT_DIR}/dist/PHLAT.py -1 ${DATA_DIR}/hlaPlusUnmapped_1.fastq.gz -2 ${DATA_DIR}/hlaPlusUnmapped_2.fastq.gz -index $INDEX_DIR -b2url $B2URL -orientation "--fr" -tag $TAG -e $PHLAT_DIR -o $RS_DIR -tmp 0 -p 4 >$DATA_DIR/run_phlat.sh
+echo "[INFO] python2 -O ${PHLAT_DIR}/dist/PHLAT.py -1 ${DATA_DIR}/hlaPlusUnmapped_1.fastq.gz -2 ${DATA_DIR}/hlaPlusUnmapped_2.fastq.gz -index $INDEX_DIR -b2url $B2URL -orientation "--fr" -tag $TAG -e $PHLAT_DIR -o $RS_DIR -tmp 0 -p 4 >$DATA_DIR/run_phlat.sh"
+time python2 -O ${PHLAT_DIR}/dist/PHLAT.py -1 ${DATA_DIR}/hlaPlusUnmapped_1.fastq.gz -2 ${DATA_DIR}/hlaPlusUnmapped_2.fastq.gz -index $INDEX_DIR -b2url $B2URL -orientation "--fr" -tag $TAG -e $PHLAT_DIR -o $RS_DIR -tmp 0 -p 4 >$DATA_DIR/run_phlat.sh
