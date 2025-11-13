@@ -10,14 +10,18 @@ arguments:
   -h, --help      prints this block and immediately exists
 
   --phlat-dir     the path to where phlat is located, DEFAULT \$SRC_DIR/phlat-release
-  --data-dir      the path to the fastq data, DEFAULT \$PHLAT_DIR/example
+  --data-dir      the path to the fastq data, DEFAULT \$PHLAT_WORK_DIR or /tmp/phlat_data
   --tag           typically the name of the sample folder, DEFAULT example
   --samtools      the path to the samtools executable, DEFAULT /usr/local/bin/samtools
   --bam           the path to where the bam file is located, \$PHLAT_DIR/resources/normal.cram 
   --index-dir     the path to b2folder, DEFAULT \$PHLAT_DIR/b2folder
-  --rs-dir        the path where the results will be, DEFAULT \$DATA_DIR/results
+  --rs-dir        the path where the results will be, DEFAULT \$PHLAT_OUTPUT_DIR or /tmp/phlat_results
   --b2url         the path to where bowtie2 is located, DEFAULT /usr/bin/bowtie2 
   --ref-fasta     the path to where the reference fasta file is located, \$PHLAT_DIR/resources/all_sequences.fa
+
+Environment variables:
+  PHLAT_WORK_DIR    Override default working directory (default: /tmp/phlat_data)
+  PHLAT_OUTPUT_DIR  Override default output directory (default: /tmp/phlat_results)
 
 
 EOF
@@ -48,7 +52,7 @@ while test $# -gt 0; do
             ;;
          --data-dir*)
 	    if [ ! "$2" ]; then
-		DARA_DIR=""
+		DATA_DIR=""
 	    else
 		DATA_DIR=$2
 		shift
@@ -120,12 +124,12 @@ done
 
 # double check all vars are set up
 [ -z $PHLAT_DIR    ] && PHLAT_DIR="$SRC_DIR/phlat-release"
-[ -z $DATA_DIR     ] && DATA_DIR="$PHLAT_DIR/example"
+[ -z $DATA_DIR     ] && DATA_DIR="${PHLAT_WORK_DIR:-/tmp/phlat_data}"
 [ -z $TAG          ] && TAG="example"
 [ -z $SAMTOOLS     ] && SAMTOOLS="/usr/local/bin/samtools"
 [ -z $BAM          ] && BAM="$PHLAT_DIR/resources/normal.cram"
 [ -z $INDEX_DIR    ] && INDEX_DIR="$PHLAT_DIR/b2folder"
-[ -z $RS_DIR       ] && RS_DIR="$DATA_DIR/results" 
+[ -z $RS_DIR       ] && RS_DIR="${PHLAT_OUTPUT_DIR:-/tmp/phlat_results}" 
 [ -z $B2URL        ] && B2URL="/usr/bin/bowtie2"
 [ -z $REF_FASTA    ] && REF_FASTA="$PHLAT_DIR/resources/all_sequences.fa"
 

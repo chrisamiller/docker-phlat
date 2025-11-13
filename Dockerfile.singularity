@@ -1,0 +1,11 @@
+FROM mgibio/phlat:1.1_withindex
+
+# Replace the original run.b38.sh script with our Singularity/Apptainer compatible version
+# This version uses /tmp directories for working and output instead of /usr paths
+COPY run.b38.sh /usr/bin/run.b38.sh
+
+# Ensure the script remains executable
+RUN chmod +x /usr/bin/run.b38.sh
+
+# Set working directory to a writable location by default
+WORKDIR /tmp
