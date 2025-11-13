@@ -52,7 +52,7 @@ while test $# -gt 0; do
             ;;
          --data-dir*)
 	    if [ ! "$2" ]; then
-		DARA_DIR=""
+		DATA_DIR=""
 	    else
 		DATA_DIR=$2
 		shift
